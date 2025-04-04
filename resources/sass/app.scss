@@ -5,184 +5,27 @@
 @import 'variables';
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
-@import '~bootstrap/scss/bootstrap-utilities';
-
-// Perfect Scrollbar
-@import 'perfect-scrollbar/css/perfect-scrollbar.css';
+@import 'bootstrap/scss/bootstrap';
+@import 'bootstrap/scss/bootstrap-utilities';
 
 // Font Awesome
 @import '@fortawesome/fontawesome-free/scss/fontawesome';
-@import '@fortawesome/fontawesome-free/scss/regular';
 @import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/regular';
 @import '@fortawesome/fontawesome-free/scss/brands';
 
 // Custom Styles
 @import 'sidebar';
 
-// RTL & Font Settings
+:root {
+    --bs-body-font-family: 'Vazirmatn', system-ui, -apple-system;
+}
+
 body {
-    font-family: 'Vazirmatn', sans-serif;
+    font-family: var(--bs-body-font-family);
     direction: rtl;
     text-align: right;
-    background-color: #f8fafc;
-}
-
-// Sidebar Styles
-.sidebar {
-    min-width: 260px;
-    max-width: 260px;
-    background: #1e1e2d;
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100vh;
-    z-index: 999;
-    transition: all 0.3s;
-
-    .sidebar-header {
-        padding: 20px;
-        background: #1a1a27;
-        
-        h2 {
-            color: #fff;
-            margin: 0;
-            font-size: 1.5rem;
-        }
-    }
-
-    .nav-category {
-        padding: 10px 25px;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        color: #565674;
-        font-weight: 500;
-    }
-
-    .nav {
-        padding: 0;
-        
-        .nav-item {
-            display: block;
-            width: 100%;
-            
-            .nav-link {
-                padding: 10px 25px;
-                color: #9899ac;
-                display: flex;
-                align-items: center;
-                transition: all 0.3s;
-                
-                i {
-                    margin-left: 8px;
-                    font-size: 1.1rem;
-                    
-                    &.link-arrow {
-                        margin-right: auto;
-                        margin-left: 0;
-                        transition: transform 0.3s;
-                    }
-                }
-                
-                &:hover {
-                    color: #fff;
-                    background: rgba(255, 255, 255, 0.1);
-                }
-                
-                &[aria-expanded="true"] {
-                    .link-arrow {
-                        transform: rotate(180deg);
-                    }
-                }
-            }
-            
-            .collapse, .collapsing {
-                .sub-menu {
-                    padding: 0;
-                    margin: 0;
-                    list-style: none;
-                    
-                    .nav-item {
-                        .nav-link {
-                            padding: 8px 25px 8px 50px;
-                            font-size: 0.9rem;
-                            color: #9899ac;
-                            
-                            &:hover, &.active {
-                                color: #3699ff;
-                                background: transparent;
-                            }
-                        }
-                    }
-                }
-            }
-            
-            &.active {
-                > .nav-link {
-                    color: #3699ff;
-                }
-            }
-        }
-    }
-}
-
-// Main Content Area
-.main-content {
-    margin-right: 260px;
-    padding: 20px;
-    min-height: 100vh;
-    transition: all 0.3s;
-}
-
-// Responsive
-@media (max-width: 768px) {
-    .sidebar {
-        margin-right: -260px;
-        
-        &.active {
-            margin-right: 0;
-        }
-    }
-    
-    .main-content {
-        margin-right: 0;
-        
-        &.active {
-            margin-right: 260px;
-        }
-    }
-}
-
-// Card Styles
-.card {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    border: none;
-    margin-bottom: 20px;
-
-    .card-header {
-        background: #fff;
-        border-bottom: 1px solid #ebedf2;
-        padding: 15px 20px;
-        font-weight: 500;
-    }
-}
-
-// Navbar Styles
-.navbar {
-    padding: 0.5rem 1rem;
-    background: #fff;
-    border-bottom: 1px solid #ebedf2;
-
-    .navbar-brand {
-        color: #181c32;
-        font-weight: 500;
-    }
-
-    .nav-link {
-        color: #6c7293;
-        
-        &:hover {
-            color: #181c32;
-        }
-    }
+    background-color: #f8f9fa;
+    color: #495057;
+    line-height: 1.6;
 }

@@ -1,0 +1,138 @@
+// Table Styles
+.table {
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.02);
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.04);
+    
+    margin-bottom: 1rem;
+    vertical-align: middle;
+    font-size: 0.875rem;
+    
+    > :not(caption) > * > * {
+        padding: 0.75rem;
+    }
+    
+    th {
+        font-weight: 600;
+        color: #495057;
+        background-color: #f8f9fa;
+        white-space: nowrap;
+    }
+    
+    td {
+        color: #495057;
+    }
+    
+    tbody {
+        tr {
+            &:hover {
+                background-color: var(--bs-table-hover-bg);
+            }
+        }
+    }
+    
+    &.table-sm {
+        > :not(caption) > * > * {
+            padding: 0.3rem;
+        }
+    }
+}
+
+// Table Card
+.table-card {
+    .card-body {
+        padding: 0;
+    }
+    
+    .table {
+        margin-bottom: 0;
+        
+        > :not(:first-child) {
+            border-top: none;
+        }
+    }
+}
+
+// Table Actions
+.table-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    
+    .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.875rem;
+    }
+}
+
+// Table Filters
+.table-filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    
+    .form-control,
+    .form-select {
+        width: auto;
+    }
+}
+
+// Table Pagination
+.table-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #fff;
+    border-top: 1px solid #dee2e6;
+    
+    .pagination {
+        margin-bottom: 0;
+    }
+}
+
+// Responsive Table
+.table-responsive {
+    @media (max-width: 767.98px) {
+        .table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            
+            th, td {
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+// Status Colors
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    
+    &.status-active {
+        background-color: rgba(25, 135, 84, 0.1);
+        color: #198754;
+    }
+    
+    &.status-inactive {
+        background-color: rgba(108, 117, 125, 0.1);
+        color: #6c757d;
+    }
+    
+    &.status-pending {
+        background-color: rgba(255, 193, 7, 0.1);
+        color: #ffc107;
+    }
+    
+    &.status-cancelled {
+        background-color: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+    }
+}

@@ -155,3 +155,4 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
   ├─ تنظیمات چاپ
   ├─ فرم ساز
   └─ اعلانات
+resources/sass/_forms.scss
