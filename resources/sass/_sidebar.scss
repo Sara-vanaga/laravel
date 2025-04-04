@@ -1,0 +1,183 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 280px;
+    background: #1e1e2d;
+    transition: all 0.3s ease;
+    z-index: 100;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+
+    .sidebar-header {
+        height: 70px;
+        display: flex;
+        align-items: center;
+        padding: 0 25px;
+        background: #1a1a27;
+
+        .brand {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+    }
+
+    .sidebar-content {
+        height: calc(100vh - 70px);
+        position: relative;
+    }
+
+    .nav-category {
+        color: #565674;
+        font-size: 0.8rem;
+        font-weight: 500;
+        padding: 20px 25px 5px;
+        text-transform: uppercase;
+    }
+
+    .nav {
+        padding: 0;
+        margin: 0;
+        
+        .nav-item {
+            position: relative;
+            padding: 0;
+            width: 100%;
+            
+            .nav-link {
+                position: relative;
+                display: flex;
+                align-items: center;
+                padding: 10px 25px;
+                color: #9899ac;
+                font-size: 0.95rem;
+                transition: all 0.3s ease;
+                
+                i {
+                    font-size: 1.1rem;
+                    margin-left: 10px;
+                    color: #494b74;
+                    transition: all 0.3s ease;
+                }
+                
+                .menu-arrow {
+                    margin-right: auto;
+                    margin-left: 0;
+                    transition: transform 0.3s ease;
+                    
+                    &.rotate {
+                        transform: rotate(180deg);
+                    }
+                }
+                
+                &:hover {
+                    color: #fff;
+                    background: rgba(255, 255, 255, 0.1);
+                    
+                    i {
+                        color: #3699ff;
+                    }
+                }
+                
+                &[aria-expanded="true"] {
+                    color: #3699ff;
+                    background: rgba(255, 255, 255, 0.05);
+                    
+                    i {
+                        color: #3699ff;
+                    }
+                    
+                    .menu-arrow {
+                        transform: rotate(180deg);
+                    }
+                }
+            }
+            
+            .collapse, .collapsing {
+                .sub-menu {
+                    padding: 5px 0;
+                    margin: 0;
+                    list-style: none;
+                    background: rgba(0, 0, 0, 0.1);
+                    
+                    .nav-item {
+                        .nav-link {
+                            padding: 8px 25px 8px 45px;
+                            color: #9899ac;
+                            font-size: 0.9rem;
+                            
+                            &:hover, &.active {
+                                color: #3699ff;
+                                background: transparent;
+                                
+                                &:before {
+                                    background: #3699ff;
+                                }
+                            }
+                            
+                            &:before {
+                                content: '';
+                                position: absolute;
+                                right: 30px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                width: 4px;
+                                height: 4px;
+                                border-radius: 100%;
+                                background: #494b74;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            &.active {
+                > .nav-link {
+                    color: #3699ff;
+                    background: rgba(255, 255, 255, 0.05);
+                    
+                    i {
+                        color: #3699ff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.main-content {
+    margin-right: 280px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 991.98px) {
+    .sidebar {
+        transform: translateX(280px);
+        
+        &.show {
+            transform: translateX(0);
+        }
+    }
+    
+    .main-content {
+        margin-right: 0;
+    }
+    
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 99;
+        display: none;
+        
+        &.show {
+            display: block;
+        }
+    }
+}
