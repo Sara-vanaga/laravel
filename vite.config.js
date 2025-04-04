@@ -6,9 +6,17 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/sass/app.scss',
-                'resources/js/app.js',
+                'resources/js/app.js'
             ],
             refresh: true,
         }),
     ],
+    resolve: {
+        alias: {
+            '$': 'jQuery',
+            'bootstrap': 'bootstrap',
+            '@fortawesome': '@fortawesome/fontawesome-free',
+            'perfect-scrollbar': 'perfect-scrollbar'
+        }
+    }
 });

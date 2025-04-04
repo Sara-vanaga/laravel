@@ -1,5 +1,3 @@
-import PerfectScrollbar from 'perfect-scrollbar';
-
 document.addEventListener('DOMContentLoaded', function() {
     // متغیرهای مورد نیاز
     const sidebarContent = document.querySelector('.sidebar-content');
@@ -37,55 +35,73 @@ document.addEventListener('DOMContentLoaded', function() {
         sidebarOverlay.addEventListener('click', toggleSidebar);
     }
 
-    // مدیریت منوها
+    // مدیریت منوها با استفاده از Bootstrap Collapse
     menuItems.forEach(item => {
-        item.addEventListener('click', function(e) {
-            const parent = this.closest('.nav-item');
-            const submenu = parent.querySelector('.collapse');
-            const arrow = this.querySelector('.menu-arrow');
+        const targetId = item.getAttribute('data-bs-target') || item.getAttribute('href');
+        if (targetId) {
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const bsCollapse = new bootstrap.Collapse(targetElement, {
+                    toggle: false
+                });
 
-            // بستن سایر منوهای باز
-            menuItems.forEach(otherItem => {
-                if (otherItem !== this) {
-                    const otherParent = otherItem.closest('.nav-item');
-                    const otherSubmenu = otherParent.querySelector('.collapse');
-                    const otherArrow = otherItem.querySelector('.menu-arrow');
+                item.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const parent = this.closest('.nav-item');
+                    const arrow = this.querySelector('.menu-arrow');
 
-                    if (otherSubmenu && otherSubmenu.classList.contains('show')) {
-                        otherSubmenu.classList.remove('show');
-                        otherItem.setAttribute('aria-expanded', 'false');
-                        if (otherArrow) {
-                            otherArrow.style.transform = 'rotate(0deg)';
+                    // بستن سایر منوهای باز
+                    menuItems.forEach(otherItem => {
+                        if (otherItem !== this) {
+                            const otherTargetId = otherItem.getAttribute('data-bs-target') || otherItem.getAttribute('href');
+                            if (otherTargetId) {
+                                const otherTarget = document.querySelector(otherTargetId);
+                                if (otherTarget && otherTarget.classList.contains('show')) {
+                                    new bootstrap.Collapse(otherTarget).hide();
+                                    otherItem.setAttribute('aria-expanded', 'false');
+                                    const otherArrow = otherItem.querySelector('.menu-arrow');
+                                    if (otherArrow) {
+                                        otherArrow.style.transform = 'rotate(0deg)';
+                                    }
+                                }
+                            }
+                        }
+                    });
+
+                    // باز/بسته کردن منوی فعلی
+                    const isExpanded = targetElement.classList.contains('show');
+                    if (isExpanded) {
+                        bsCollapse.hide();
+                        this.setAttribute('aria-expanded', 'false');
+                        if (arrow) {
+                            arrow.style.transform = 'rotate(0deg)';
+                        }
+                    } else {
+                        bsCollapse.show();
+                        this.setAttribute('aria-expanded', 'true');
+                        if (arrow) {
+                            arrow.style.transform = 'rotate(180deg)';
                         }
                     }
-                }
-            });
-
-            // باز/بسته کردن منوی فعلی
-            if (submenu) {
-                const isExpanded = submenu.classList.contains('show');
-                submenu.classList.toggle('show');
-                this.setAttribute('aria-expanded', !isExpanded);
-                if (arrow) {
-                    arrow.style.transform = isExpanded ? 'rotate(0deg)' : 'rotate(180deg)';
-                }
+                });
             }
-        });
+        }
     });
 
     // بستن منوها با کلیک خارج از سایدبار
     document.addEventListener('click', function(e) {
         if (!sidebar.contains(e.target) && !mobileToggle.contains(e.target)) {
             menuItems.forEach(item => {
-                const parent = item.closest('.nav-item');
-                const submenu = parent.querySelector('.collapse');
-                const arrow = item.querySelector('.menu-arrow');
-
-                if (submenu && submenu.classList.contains('show')) {
-                    submenu.classList.remove('show');
-                    item.setAttribute('aria-expanded', 'false');
-                    if (arrow) {
-                        arrow.style.transform = 'rotate(0deg)';
+                const targetId = item.getAttribute('data-bs-target') || item.getAttribute('href');
+                if (targetId) {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement && targetElement.classList.contains('show')) {
+                        new bootstrap.Collapse(targetElement).hide();
+                        item.setAttribute('aria-expanded', 'false');
+                        const arrow = item.querySelector('.menu-arrow');
+                        if (arrow) {
+                            arrow.style.transform = 'rotate(0deg)';
+                        }
                     }
                 }
             });
@@ -108,7 +124,10 @@ document.addEventListener('DOMContentLoaded', function() {
             // اگر در زیرمنو است، منوی والد را باز کن
             const parentCollapse = link.closest('.collapse');
             if (parentCollapse) {
-                parentCollapse.classList.add('show');
+                const bsCollapse = new bootstrap.Collapse(parentCollapse, {
+                    toggle: false
+                });
+                bsCollapse.show();
                 const parentLink = parentCollapse.previousElementSibling;
                 if (parentLink) {
                     parentLink.classList.add('active');
