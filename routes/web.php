@@ -18,6 +18,11 @@ use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\InstallmentController;
 use App\Http\Controllers\WasteController;
+use App\Http\Controllers\ArchiveController;
+use App\Http\Controllers\SmsController;
+use App\Http\Controllers\InquiryController;
+use App\Http\Controllers\OtherController;
+use App\Http\Controllers\CurrencyController;
 
 Route::get('/', function () {
     return view('about');
@@ -144,5 +149,37 @@ Route::middleware(['auth'])->group(function () {
         Route::get('print', [SettingController::class, 'print'])->name('print.settings');
         Route::get('form-builder', [SettingController::class, 'formBuilder'])->name('form-builder');
         Route::get('notifications', [SettingController::class, 'notifications'])->name('notifications.settings');
+    });
+
+    // سایر
+    Route::prefix('other')->group(function () {
+        // آرشیو
+        Route::get('archive', [ArchiveController::class, 'index'])->name('archive.index');
+        
+        // پنل پیامک
+        Route::get('sms', [SmsController::class, 'panel'])->name('sms.panel');
+        
+        // استعلام
+        Route::get('inquiry', [InquiryController::class, 'index'])->name('inquiry.index');
+        
+        // دریافت سایر
+        Route::get('receives/create', [OtherController::class, 'createReceive'])->name('other-receives.create');
+        Route::get('receives', [OtherController::class, 'indexReceives'])->name('other-receives.index');
+        
+        // پرداخت سایر
+        Route::get('payments/create', [OtherController::class, 'createPayment'])->name('other-payments.create');
+        Route::get('payments', [OtherController::class, 'indexPayments'])->name('other-payments.index');
+        
+        // سند تسعیر ارز
+        Route::get('currency-exchange', [CurrencyController::class, 'exchange'])->name('currency-exchange');
+        
+        // سند توازن اشخاص
+        Route::get('person-balance', [AccountingController::class, 'personBalance'])->name('person-balance');
+        
+        // سند توازن کالاها
+        Route::get('product-balance', [AccountingController::class, 'productBalance'])->name('product-balance');
+        
+        // سند حقوق
+        Route::get('salary', [AccountingController::class, 'salary'])->name('salary');
     });
 });

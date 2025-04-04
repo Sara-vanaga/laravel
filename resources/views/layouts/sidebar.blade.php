@@ -17,7 +17,7 @@
             </li>
 
             <!-- اشخاص -->
-            <div class="nav-category">اشخاص</div>
+            
             <li class="nav-item">
                 <a href="#persons" class="nav-link" data-bs-toggle="collapse" role="button" aria-expanded="false">
                     <i class="fas fa-users"></i>

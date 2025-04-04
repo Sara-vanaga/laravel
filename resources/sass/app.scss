@@ -1,12 +1,30 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 // Variables
 @import 'variables';
 
 // Bootstrap
-@import 'bootstrap/scss/bootstrap';
-@import 'sidebar';
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap/scss/bootstrap-utilities';
+
+// Perfect Scrollbar
+@import 'perfect-scrollbar/css/perfect-scrollbar.css';
+
+// Font Awesome
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/regular';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/brands';
+
 // Custom Styles
+@import 'sidebar';
+
+// RTL & Font Settings
 body {
-    font-family: 'Anjoman', sans-serif;
+    font-family: 'Vazirmatn', sans-serif;
+    direction: rtl;
+    text-align: right;
     background-color: #f8fafc;
 }
 

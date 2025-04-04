@@ -1,36 +1,79 @@
+// متغیرها
+$sidebar-width: 280px;
+$header-height: 70px;
+$sidebar-bg: #1e1e2d;
+$sidebar-header-bg: #1a1a27;
+$menu-item-color: #9899ac;
+$menu-item-hover-color: #fff;
+$menu-item-active-color: #3699ff;
+$menu-arrow-color: #494b74;
+$category-color: #565674;
+
 .sidebar {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
-    width: 280px;
-    background: #1e1e2d;
+    width: $sidebar-width;
+    background: $sidebar-bg;
     transition: all 0.3s ease;
     z-index: 100;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    direction: rtl;
 
     .sidebar-header {
-        height: 70px;
+        height: $header-height;
         display: flex;
         align-items: center;
         padding: 0 25px;
-        background: #1a1a27;
+        background: $sidebar-header-bg;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 
         .brand {
             color: #fff;
             font-size: 1.5rem;
             font-weight: 600;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+
+            i {
+                margin-left: 10px;
+                font-size: 1.8rem;
+            }
         }
     }
 
     .sidebar-content {
-        height: calc(100vh - 70px);
+        height: calc(100vh - #{$header-height});
         position: relative;
+        overflow: hidden;
+
+        &:hover {
+            overflow-y: auto;
+        }
+
+        // اسکرول‌بار سفارشی
+        &::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
     }
 
     .nav-category {
-        color: #565674;
+        color: $category-color;
         font-size: 0.8rem;
         font-weight: 500;
         padding: 20px 25px 5px;
@@ -51,46 +94,51 @@
                 display: flex;
                 align-items: center;
                 padding: 10px 25px;
-                color: #9899ac;
+                color: $menu-item-color;
                 font-size: 0.95rem;
                 transition: all 0.3s ease;
                 
                 i {
                     font-size: 1.1rem;
                     margin-left: 10px;
-                    color: #494b74;
+                    color: $menu-arrow-color;
                     transition: all 0.3s ease;
-                }
-                
-                .menu-arrow {
-                    margin-right: auto;
-                    margin-left: 0;
-                    transition: transform 0.3s ease;
-                    
-                    &.rotate {
-                        transform: rotate(180deg);
+
+                    &.menu-arrow {
+                        margin-right: auto;
+                        margin-left: 0;
+                        transition: transform 0.3s ease;
                     }
                 }
                 
                 &:hover {
-                    color: #fff;
+                    color: $menu-item-hover-color;
                     background: rgba(255, 255, 255, 0.1);
                     
                     i {
-                        color: #3699ff;
+                        color: $menu-item-hover-color;
                     }
                 }
                 
                 &[aria-expanded="true"] {
-                    color: #3699ff;
+                    color: $menu-item-active-color;
                     background: rgba(255, 255, 255, 0.05);
                     
                     i {
-                        color: #3699ff;
+                        color: $menu-item-active-color;
+                        
+                        &.menu-arrow {
+                            transform: rotate(180deg);
+                        }
                     }
+                }
+
+                &.active {
+                    color: $menu-item-active-color;
+                    background: rgba(255, 255, 255, 0.05);
                     
-                    .menu-arrow {
-                        transform: rotate(180deg);
+                    i {
+                        color: $menu-item-active-color;
                     }
                 }
             }
@@ -105,15 +153,15 @@
                     .nav-item {
                         .nav-link {
                             padding: 8px 25px 8px 45px;
-                            color: #9899ac;
+                            color: $menu-item-color;
                             font-size: 0.9rem;
                             
                             &:hover, &.active {
-                                color: #3699ff;
+                                color: $menu-item-active-color;
                                 background: transparent;
                                 
                                 &:before {
-                                    background: #3699ff;
+                                    background: $menu-item-active-color;
                                 }
                             }
                             
@@ -126,44 +174,24 @@
                                 width: 4px;
                                 height: 4px;
                                 border-radius: 100%;
-                                background: #494b74;
+                                background: $menu-arrow-color;
                             }
                         }
                     }
                 }
             }
-            
-            &.active {
-                > .nav-link {
-                    color: #3699ff;
-                    background: rgba(255, 255, 255, 0.05);
-                    
-                    i {
-                        color: #3699ff;
-                    }
-                }
-            }
         }
     }
 }
 
-.main-content {
-    margin-right: 280px;
-    padding: 20px;
-    transition: all 0.3s ease;
-}
-
+// استایل‌های موبایل
 @media (max-width: 991.98px) {
     .sidebar {
-        transform: translateX(280px);
+        transform: translateX($sidebar-width);
         
         &.show {
             transform: translateX(0);
         }
-    }
-    
-    .main-content {
-        margin-right: 0;
     }
     
     .sidebar-overlay {
@@ -179,5 +207,20 @@
         &.show {
             display: block;
         }
+    }
+
+    body.sidebar-open {
+        overflow: hidden;
+    }
+}
+
+// محتوای اصلی
+.main-content {
+    margin-right: $sidebar-width;
+    padding: 20px;
+    transition: all 0.3s ease;
+    
+    @media (max-width: 991.98px) {
+        margin-right: 0;
     }
 }
